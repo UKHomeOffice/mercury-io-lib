@@ -8,6 +8,8 @@ fork in run := true
 
 fork in Test := true
 
+publishArtifact in Test := true
+
 scalacOptions ++= Seq(
   "-feature",
   "-language:implicitConversions",
@@ -32,7 +34,7 @@ resolvers ++= Seq(
 
 val `json4s-version` = "3.5.0"
 val `scalactic-version` = "3.0.1"
-val `test-scala-lib-version` = "1.4.0"
+val `test-scala-lib-version` = "1.4.1"
 
 libraryDependencies ++= Seq(
   "commons-codec" % "commons-codec" % "1.10",
@@ -47,11 +49,9 @@ libraryDependencies ++= Seq(
   "com.lihaoyi" %% "pprint" % "0.4.4",
   "com.github.nscala-time" %% "nscala-time" % "2.16.0" withSources(),
   "org.clapper" %% "grizzled-slf4j" % "1.3.0",
-  "com.github.UKHomeOffice" % "test-scala-lib" % `test-scala-lib-version` withSources()
+  "com.github.UKHomeOffice" %% "test-scala-lib" % `test-scala-lib-version` withSources()
 )
 
-assemblyMergeStrategy in assembly := {
-  case PathList("META-INF", "MANIFEST.MF") => MergeStrategy.discard
-  case PathList(ps @ _*) if ps.last endsWith ".java" => MergeStrategy.discard
-  case _ => MergeStrategy.first
-}
+libraryDependencies ++= Seq(
+  "com.github.UKHomeOffice" %% "test-scala-lib" % `test-scala-lib-version` % Test classifier "tests" withSources()
+)
