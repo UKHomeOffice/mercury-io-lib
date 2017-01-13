@@ -46,11 +46,8 @@ libraryDependencies ++= Seq(
   "org.scala-lang.modules" %% "scala-pickling" % "0.10.1" withSources(),
   "com.lihaoyi" %% "pprint" % "0.4.4",
   "com.github.nscala-time" %% "nscala-time" % "2.16.0" withSources(),
-  "org.clapper" %% "grizzled-slf4j" % "1.3.0"
-)
-
-libraryDependencies ++= Seq(
-  "com.github.UKHomeOffice" % "test-scala-lib" % `test-scala-lib-version` % Test withSources()
+  "org.clapper" %% "grizzled-slf4j" % "1.3.0",
+  "com.github.UKHomeOffice" % "test-scala-lib" % `test-scala-lib-version` withSources()
 )
 
 assemblyMergeStrategy in assembly := {
