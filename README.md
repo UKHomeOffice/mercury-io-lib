@@ -110,7 +110,7 @@ There are several online JSON schema validation tools such as [JSON Schema Valid
 
 Alternatively, a JSON schema can be validated from the Scala REPL by doing the following:
 
-```
+```scala
 sbt
 
 console
@@ -131,7 +131,7 @@ res0: scala.util.Try[uk.gov.homeoffice.json.JsonSchema] = Success(uk.gov.homeoff
 Example Usage - Web Services
 ----------------------------
 You have some service that can publish a file to some web service:
-```
+```scala
 class ExamplePublisher(ws: WebService) {
   val publish: File => Future[WSResponse] = { file =>
     ws.endpoint("/my-file-endpoint").post(file)
@@ -140,7 +140,7 @@ class ExamplePublisher(ws: WebService) {
 ```
 
 Let's test this by faking the endpoint i.e. an integration test but without requiring a separating running service with the required endpoint:
-```
+```scala
 class ExamplePublisherSpec(implicit env: ExecutionEnv) extends Specification with WebServiceSpecification {
   "File" should {
     "be published to endpoint" in {
