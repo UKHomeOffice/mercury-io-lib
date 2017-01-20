@@ -1,6 +1,6 @@
 Scala library for IO functionality
 ==================================
-General Scala IO functionality such as reading resources, JSON schema validation and web services
+General Scala IO functionality such as reading resources, JSON schema validation and web services.
 
 Project built with the following (main) technologies:
 
@@ -115,17 +115,17 @@ sbt
 
 console
 
+import org.json4s.JValue
+import uk.gov.homeoffice.io.{Classpath, Resource}
 import uk.gov.homeoffice.json._
 
-import uk.gov.homeoffice.json.Json._
-
-jsonFromFilepath("src/test/resources/schema-test.json") map { JsonSchema(_) }
+Resource(Classpath("/schema-test.json")).to[JValue] map { JsonSchema(_) }
 ```
 
 If you've given a valid file path and the schema is valid, the result will be something like:
 
 ```
-res3: scala.util.Try[uk.gov.homeoffice.json.JsonSchema] = Success(uk.gov.homeoffice.json.JsonSchema@7568db95)
+res0: scala.util.Try[uk.gov.homeoffice.json.JsonSchema] = Success(uk.gov.homeoffice.json.JsonSchema@2728f35d)
 ```
 
 Example Usage - Web Services
