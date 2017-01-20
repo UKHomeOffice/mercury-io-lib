@@ -9,11 +9,13 @@ resolvers ++= Seq(
   Resolver.bintrayRepo("findify", "maven")
 )
 
+val `play-version` = "2.5.10"
 val `json4s-version` = "3.5.0"
 val `scalactic-version` = "3.0.1"
 val `test-scala-lib-version` = "1.4.3"
 
 libraryDependencies ++= Seq(
+  "com.typesafe.play" %% "play-ws" % `play-version` withSources(),
   "commons-codec" % "commons-codec" % "1.10",
   "com.typesafe" % "config" % "1.3.1" withSources(),
   "org.scalactic" %% "scalactic" % `scalactic-version` withSources(),
@@ -30,5 +32,7 @@ libraryDependencies ++= Seq(
 )
 
 libraryDependencies ++= Seq(
+  "com.typesafe.play" %% "play-server" % `play-version` % Test withSources(),
+  "com.typesafe.play" %% "play-test" % `play-version` % Test withSources(),
   "com.github.UKHomeOffice" %% "test-scala-lib" % `test-scala-lib-version` % Test classifier "tests" withSources()
 )
