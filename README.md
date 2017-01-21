@@ -139,7 +139,7 @@ class ExamplePublisher(ws: WebService) {
 }
 ```
 
-Let's test this by faking the endpoint i.e. an integration test but without requiring a separating running service with the required endpoint:
+Let's test this by faking the endpoint i.e. an integration test but without requiring a separately running service with the required endpoint:
 ```scala
 class ExamplePublisherSpec(implicit env: ExecutionEnv) extends Specification with WebServiceSpecification {
   "File" should {
