@@ -3,13 +3,14 @@ package uk.gov.homeoffice.json
 import java.net.URL
 import scala.collection.JavaConversions._
 import scala.util.{Failure, Success}
+import com.github.fge.jackson.JsonLoader
+import com.github.fge.jsonschema.core.exceptions.ProcessingException
+import com.github.fge.jsonschema.main.JsonSchemaFactory
 import org.json4s.JValue
 import org.json4s.JsonAST.{JNothing, JString}
 import org.json4s.jackson.JsonMethods._
 import org.scalactic.{Bad, Good, Or}
-import com.github.fge.jackson.JsonLoader
-import com.github.fge.jsonschema.core.exceptions.ProcessingException
-import com.github.fge.jsonschema.main.JsonSchemaFactory
+import uk.gov.homeoffice.io._
 import uk.gov.homeoffice.json.JsonSchema.Validator
 
 /**
@@ -44,7 +45,7 @@ class JsonSchema(validator: Validator) {
 object JsonSchema extends Json with JsonFormats {
   type Validator = com.github.fge.jsonschema.main.JsonSchema
 
-  def apply(schema: URL): JsonSchema = jsonFromUrlContent(schema) match {
+  def apply(schema: URL): JsonSchema = schema.as[JValue] match {
     case Success(j) => apply(j)
     case Failure(t) => throw new BadSchemaException(s"Failed to parse $schema into a JSON schema because: ${t.getMessage}")
   }

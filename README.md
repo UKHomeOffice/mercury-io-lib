@@ -116,10 +116,10 @@ sbt
 console
 
 import org.json4s.JValue
-import uk.gov.homeoffice.io.{Classpath, Resource}
+import uk.gov.homeoffice.io.Classpath
 import uk.gov.homeoffice.json._
 
-Resource(Classpath("/schema-test.json")).to[JValue] map { JsonSchema(_) }
+Classpath("/schema-test.json").as[JValue] map { JsonSchema(_) }
 ```
 
 If you've given a valid file path and the schema is valid, the result will be something like:

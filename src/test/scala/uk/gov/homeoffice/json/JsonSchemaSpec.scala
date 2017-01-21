@@ -17,7 +17,7 @@ class JsonSchemaSpec extends Specification with Logging {
 
     "be invalidated when providing a bad schema location" in {
       JsonSchema(new URL("file:///does-not-exist.json")) must throwA[BadSchemaException].like {
-        case t => t.getMessage mustEqual "Failed to parse file:/does-not-exist.json into a JSON schema because: /does-not-exist.json (No such file or directory)"
+        case t => t.getMessage mustEqual "Failed to parse file:/does-not-exist.json into a JSON schema because: Could not read URL for given: file:/does-not-exist.json"
       }
     }
 

@@ -9,7 +9,7 @@ import org.specs2.mutable.Specification
 class ClasspathToURLSpec extends Specification {
   "Classpath resource" should {
     "give a URL from root of classpath" in {
-      Resource(Classpath("/test.json")).to[URL] must beLike[Try[URL]] {
+      Resource(Classpath("/test.json")).as[URL] must beLike[Try[URL]] {
         case Success(url) => fromURL(url).mkString mustEqual
           """{
             |    "blah": "whatever"
@@ -20,13 +20,13 @@ class ClasspathToURLSpec extends Specification {
 
   "Classpath" should {
     "fail to be read" in {
-      Classpath("/non-existing.json").to[URL] must beLike {
+      Classpath("/non-existing.json").as[URL] must beLike {
         case Failure(e: IOException) => e.getMessage mustEqual "Could not read resource for given: Classpath(/non-existing.json)"
       }
     }
 
     "give a URL from root of classpath" in {
-      Classpath("/test.json").to[URL] must beLike[Try[URL]] {
+      Classpath("/test.json").as[URL] must beLike[Try[URL]] {
         case Success(url) => fromURL(url).mkString mustEqual
           """{
             |    "blah": "whatever"
@@ -35,7 +35,7 @@ class ClasspathToURLSpec extends Specification {
     }
 
     "give a URL from root of classpath even when not providing the mandatory / at the start of the path" in {
-      Classpath("test.json").to[URL] must beLike[Try[URL]] {
+      Classpath("test.json").as[URL] must beLike[Try[URL]] {
         case Success(url) => fromURL(url).mkString mustEqual
           """{
             |    "blah": "whatever"
@@ -44,7 +44,7 @@ class ClasspathToURLSpec extends Specification {
     }
 
     "give a URL from classpath of /'s" in {
-      Classpath("/subfolder/test.json").to[URL] must beLike[Try[URL]] {
+      Classpath("/subfolder/test.json").as[URL] must beLike[Try[URL]] {
         case Success(url) => fromURL(url).mkString mustEqual
           """{
             |    "blah": "whatever"
@@ -53,7 +53,7 @@ class ClasspathToURLSpec extends Specification {
     }
 
     "give a URL from classpath of /'s even when not providing the mandatory / at the start of the path" in {
-      Classpath("subfolder/test.json").to[URL] must beLike[Try[URL]] {
+      Classpath("subfolder/test.json").as[URL] must beLike[Try[URL]] {
         case Success(url) => fromURL(url).mkString mustEqual
           """{
             |    "blah": "whatever"

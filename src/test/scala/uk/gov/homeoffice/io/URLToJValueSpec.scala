@@ -11,12 +11,12 @@ import org.specs2.mutable.Specification
 class URLToJValueSpec extends Specification {
   "URL resource" should {
     "give JSON" in {
-      Resource(new URL("file:./src/test/resources/test.json")).to[JValue] mustEqual Success {
+      Resource(new URL("file:./src/test/resources/test.json")).as[JValue] mustEqual Success {
         "blah" -> "whatever": JValue
       }
 
       "give JSON for a specified encoding" in {
-        Resource(new URL("file:./src/test/resources/test.json"), Codec.ISO8859).to[JValue] mustEqual Success {
+        Resource(new URL("file:./src/test/resources/test.json"), Codec.ISO8859).as[JValue] mustEqual Success {
           "blah" -> "whatever": JValue
         }
       }
@@ -25,13 +25,13 @@ class URLToJValueSpec extends Specification {
 
   "URL" should {
     "fail to be read" in {
-      new URL("file:./src/test/resources/non-existing.json").to[JValue] must beLike {
+      new URL("file:./src/test/resources/non-existing.json").as[JValue] must beLike {
         case Failure(e: IOException) => e.getMessage mustEqual "Could not read URL for given: file:./src/test/resources/non-existing.json"
       }
     }
 
     "give JSON" in {
-      new URL("file:./src/test/resources/test.json").to[JValue] mustEqual Success {
+      new URL("file:./src/test/resources/test.json").as[JValue] mustEqual Success {
         "blah" -> "whatever": JValue
       }
     }
