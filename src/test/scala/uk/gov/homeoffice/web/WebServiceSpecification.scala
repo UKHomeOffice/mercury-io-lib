@@ -13,11 +13,25 @@ trait WebServiceSpecification {
   sequential
   isolated
 
-  def withRoutes(routes: PartialFunction[RequestHeader, Handler])(test: WebService => MatchResult[_]) = {
-    Server.withRouter()(routes){ implicit port =>
+  /**
+    * Firstly, given a PartialFunction of RequestHeader => Handler acting has some endpoints to test against.
+    * Secondly a function to run against the endpoints, where the function is given a WebService to execute a particular endpoint,
+    * and the result of the test function gives appropriate assertions. For example:
+    * <pre>
+    *   """accept route starting with "/"""" in routes {
+    *     case GET(p"/my-get-route") => Action {
+    *       Ok
+    *     } { webService =>
+    *       webService.endpoint("/my-get-route").get() must beLike[WSResponse] {
+    *         case response => response.status mustEqual OK
+    *       }.await
+    *     }
+    * </pre>
+    */
+  val routes = (rs: PartialFunction[RequestHeader, Handler]) => (test: WebService => MatchResult[_]) =>
+    Server.withRouter()(rs) { implicit port =>
       WsTestClient.withClient { wsClient =>
         test(WebService(new URL(s"http://localhost:$port"), wsClient))
       }
     }
-  }
 }
