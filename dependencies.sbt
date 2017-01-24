@@ -12,7 +12,7 @@ resolvers ++= Seq(
 val `play-version` = "2.5.10"
 val `json4s-version` = "3.5.0"
 val `scalactic-version` = "3.0.1"
-val `test-scala-lib-version` = "1.4.3"
+val `test-scala-lib-version` = "1.4.4"
 
 libraryDependencies ++= Seq(
   "com.typesafe.play" %% "play-ws" % `play-version` withSources(),
