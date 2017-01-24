@@ -8,11 +8,9 @@ Project built with the following (main) technologies:
 
 - SBT
 
-- Json4s
+- Play Web Services
 
-Introduction
-------------
-TODO
+- Json4s and Play JSON
 
 Build and Deploy
 ----------------
@@ -46,11 +44,31 @@ To run integration specs:
 sbt it:test
 ```
 
+Dependencies
+------------
+At the time of writing, this module uses [JitPack](https://jitpack.io/).
+If you would like your module to depend on this module, add the following to your build sbt resolvers:
+```scala
+resolvers ++= Seq(
+  ...
+  "jitpack" at "https://jitpack.io",
+  ...
+)
+```
+
+and within your dependencies refer to this module via its Github repository including user name (in this case UKHomeOffice) i.e.
+```scala
+libraryDependencies ++= Seq(
+  ...
+  "com.github.UKHomeOffice" %% "io-scala-lib" % "1.9.6",
+  "com.github.UKHomeOffice" %% "io-scala-lib" % "1.9.6" % Test classifier "tests",
+  ...
+)
+```
+
 SBT - Revolver (keep things going while developing/testing)
 -----------------------------------------------------------
-sbt-revolver is a plugin for SBT enabling a super-fast development turnaround for your Scala applications:
-
-See https://github.com/spray/sbt-revolver
+[sbt-revolver](https://github.com/spray/sbt-revolver) is a plugin for SBT enabling a super-fast development turnaround for your Scala applications:
 
 For development, you can use ~re-start to go into "triggered restart" mode.
 Your application starts up and SBT watches for changes in your source (or resource) files.
