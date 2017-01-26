@@ -7,7 +7,7 @@ import com.github.fge.jackson.JsonLoader
 import com.github.fge.jsonschema.core.exceptions.ProcessingException
 import com.github.fge.jsonschema.main.JsonSchemaFactory
 import org.json4s.JValue
-import org.json4s.JsonAST.{JNothing, JString}
+import org.json4s.JsonAST.JNothing
 import org.json4s.jackson.JsonMethods._
 import org.scalactic.{Bad, Good, Or}
 import uk.gov.homeoffice.io._
@@ -16,7 +16,6 @@ import uk.gov.homeoffice.json.JsonSchema.Validator
 /**
   * JSON Schema that conforms to http://json-schema.org/
   * Upon given JSON that is a valid JSON schema, this class represents said schema
-  *
   * @param validator Validator with underlying type of com.github.fge.jsonschema.main.JsonSchema
   */
 class JsonSchema(validator: Validator) {
@@ -54,8 +53,6 @@ object JsonSchema extends Json with JsonFormats {
     // TODO Not sure I like this "val" followed by "if" - Think validation "options" can be given to the underlying validator, but don't know how.
     val missingRequiredProperties = Seq("$schema", "id", "type").foldLeft(Seq.empty[String]) {
       case (seq, p) if schema \ p == JNothing => seq :+ p
-      case (seq, p) if p == "type" && schema \ "type" == JString("object") && schema \ "properties" == JNothing => seq :+ p
-      case (seq, p) if p == "type" && schema \ "type" == JString("array") && schema \ "items" == JNothing => seq :+ p
       case (seq, _) => seq
     }
 

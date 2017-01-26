@@ -128,7 +128,7 @@ class JsonSchemaSpec extends Specification with Logging {
         "name" : "Barbelos Airport",
         "countryCode" : "BR",
         "timeZoneRegionName" : "America/Porto_Velho"
-        } ]""")
+      }]""")
 
       JsonSchema(arraySchema) validate json mustEqual Good(json)
     }
@@ -150,6 +150,32 @@ class JsonSchemaSpec extends Specification with Logging {
       val Bad(JsonError(j, Some(error), _)) = JsonSchema(arraySchema).validate(json)
       error must contain(""""clcclclcl" is too long""")
       error must contain(""""cccRRR" is too long""")
+      j mustEqual json
+    }
+  }
+
+  "Schema validation" should {
+    "validate against one of schema" in {
+      val json = parse("""
+      {
+        "registeredTravellerNumber": "RTASDFGHJ",
+        "linkExpires": "2015-06-26",
+        "hash": "ABABABAABA"
+      }""")
+
+      JsonSchema(oneOfSchema) validate json mustEqual Good(json)
+    }
+
+    "invalidate against one of schema" in {
+      val json = parse("""
+      {
+        "registeredTravellerNumber": "RTAS&W&DFGHJ",
+        "linkExpires": "2015-06-26",
+        "hash": "ABABABAABA"
+      }""")
+
+      val Bad(JsonError(j, Some(error), _)) = JsonSchema(oneOfSchema).validate(json)
+      error must contain("does not match input string")
       j mustEqual json
     }
   }
@@ -233,5 +259,47 @@ object JsonSchemaSpec {
         "timeZoneRegionName"
       ]
     }
+  }""")
+
+  val oneOfSchema = parse("""
+  {
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "id": "http://www.gov.uk/rt/self-service/request",
+    "type": "object",
+    "oneOf": [{
+      "properties": {
+        "registeredTravellerNumber": {
+          "type": "string",
+          "pattern":  "^\\w{8,10}$"
+        },
+        "linkExpires": {
+          "type": "string",
+          "pattern": "^([0-9]{4})-(0[1-9]|1[0-2])-(0[1-9]|[1-2][0-9]|3[0-1])$"
+        },
+        "hash": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "registeredTravellerNumber",
+        "linkExpires",
+        "hash"
+      ]
+    }, {
+      "properties": {
+        "registeredTravellerNumber": {
+          "type": "string",
+          "pattern":  "^\\w{8,10}$"
+        },
+        "dateOfBirth": {
+          "type": "string",
+          "pattern": "^([0-9]{4})-(0[1-9]|1[0-2])-(0[1-9]|[1-2][0-9]|3[0-1])$"
+        }
+      },
+      "required": [
+        "registeredTravellerNumber",
+        "dateOfBirth"
+      ]
+    }]
   }""")
 }
