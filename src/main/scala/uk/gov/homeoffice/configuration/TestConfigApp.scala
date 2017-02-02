@@ -5,7 +5,7 @@ import com.typesafe.config.ConfigFactory
 /**
  * In IntelliJ, right click this file and choose "Run TestConfigApp".
  * The first time will give the exception:
- * com.typesafe.config.ConfigException$Missing: No configuration setting found for key 'welcome'
+ * com.typesafe.config.ConfigException.Missing: No configuration setting found for key 'welcome'
  *
  * The default configuration file is application.conf.
  * This library does not provide one and so the configuration property required by this test application will be missing by default.
