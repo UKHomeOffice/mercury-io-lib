@@ -23,6 +23,20 @@ class WebServiceSpec(implicit env: ExecutionEnv) extends Specification with Body
       }.await
     }
 
+    """accept route starting with "/" and "get" subbed out by instantiating our own WebService""" in routesForHost {
+      case GET(p"/my-get-route") => Action {
+        Ok("Good Get")
+      }
+    } { (wsClient, wsHost) =>
+      val webService = new WebService(wsClient, wsHost)
+
+      webService.endpoint("/my-get-route").get() must beLike[WSResponse] {
+        case response =>
+          response.status mustEqual OK
+          response.body mustEqual "Good Get"
+      }.await
+    }
+
     """accept route not starting with "/" and "get" subbed out""" in routes {
       case GET(p"/my-get-route") => Action {
         Ok("Good Get")
