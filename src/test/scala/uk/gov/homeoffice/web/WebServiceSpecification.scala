@@ -1,7 +1,6 @@
 package uk.gov.homeoffice.web
 
 import java.net.URL
-import play.api.libs.ws.WSClient
 import play.api.mvc.{Handler, RequestHeader}
 import play.api.test.WsTestClient
 import play.core.server.Server
@@ -33,17 +32,6 @@ trait WebServiceSpecification {
     Server.withRouter()(rs) { implicit port =>
       WsTestClient.withClient { wsClient =>
         test(WebService(new URL(s"http://localhost:$port"), wsClient))
-      }
-    }
-
-  /**
-    * Alternative to stubbing routes.
-    * Instead of giving a "test" a ready made WebService to use, the host and client are provided to allow for custom instantiation of WebService.
-    */
-  val routesForHost = (rs: PartialFunction[RequestHeader, Handler]) => (test: (URL, WSClient) => MatchResult[_]) =>
-    Server.withRouter()(rs) { implicit port =>
-      WsTestClient.withClient { wsClient =>
-        test(new URL(s"http://localhost:$port"), wsClient)
       }
     }
 }
