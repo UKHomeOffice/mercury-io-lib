@@ -9,7 +9,7 @@ resolvers ++= Seq(
   Resolver.bintrayRepo("findify", "maven")
 )
 
-val `play-version` = "2.5.10"
+val `play-version` = "2.5.12"
 val `json4s-version` = "3.2.11"
 val `scalactic-version` = "3.0.1"
 val `test-scala-lib-version` = "1.4.4"
