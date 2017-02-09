@@ -3,7 +3,7 @@ package uk.gov.homeoffice.web
 import java.net.URL
 import akka.actor.ActorSystem
 import akka.stream.ActorMaterializer
-import play.api.libs.ws.ahc.AhcWSClient
+import play.api.libs.ws.ahc.{AhcWSClient, AhcWSClientConfig}
 import play.api.libs.ws.{WSClient, WSRequest}
 
 /**
@@ -37,10 +37,10 @@ class WebService(val host: URL, val wsClient: WSClient) {
 object WebService {
   def apply(host: URL, wsClient: WSClient) = new WebService(host, wsClient)
 
-  def apply(host: URL) = {
+  def apply(host: URL, config: AhcWSClientConfig = AhcWSClientConfig()) = {
     implicit val system = ActorSystem()
     implicit val materializer = ActorMaterializer()
-    val wsClient = AhcWSClient()
+    val wsClient = AhcWSClient(config)
 
     sys addShutdownHook {
       system.terminate()
