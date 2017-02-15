@@ -9,30 +9,32 @@ resolvers ++= Seq(
   Resolver.bintrayRepo("findify", "maven")
 )
 
+transitiveClassifiers := Seq("sources")
+
 val `play-version` = "2.5.12"
 val `json4s-version` = "3.2.11"
 val `scalactic-version` = "3.0.1"
 val `test-scala-lib-version` = "1.4.4"
 
 libraryDependencies ++= Seq(
-  "com.typesafe.play" %% "play-ws" % `play-version` withSources(),
+  "com.typesafe.play" %% "play-ws" % `play-version`,
   "commons-codec" % "commons-codec" % "1.10",
-  "com.typesafe" % "config" % "1.3.1" withSources(),
-  "org.scalactic" %% "scalactic" % `scalactic-version` withSources(),
-  "org.json4s" %% "json4s-native" % `json4s-version` withSources(),
-  "org.json4s" %% "json4s-jackson" % `json4s-version` withSources(),
-  "org.json4s" %% "json4s-ext" % `json4s-version` withSources(),
-  "org.json4s" %% "json4s-mongo" % `json4s-version` withSources(),
-  "com.github.fge" % "json-schema-validator" % "2.2.6" withSources(),
-  "org.scala-lang.modules" %% "scala-pickling" % "0.10.1" withSources(),
+  "com.typesafe" % "config" % "1.3.1",
+  "org.scalactic" %% "scalactic" % `scalactic-version`,
+  "org.json4s" %% "json4s-native" % `json4s-version`,
+  "org.json4s" %% "json4s-jackson" % `json4s-version`,
+  "org.json4s" %% "json4s-ext" % `json4s-version`,
+  "org.json4s" %% "json4s-mongo" % `json4s-version`,
+  "com.github.fge" % "json-schema-validator" % "2.2.6",
+  "org.scala-lang.modules" %% "scala-pickling" % "0.10.1",
   "com.lihaoyi" %% "pprint" % "0.4.4",
-  "com.github.nscala-time" %% "nscala-time" % "2.16.0" withSources(),
+  "com.github.nscala-time" %% "nscala-time" % "2.16.0",
   "org.clapper" %% "grizzled-slf4j" % "1.3.0",
-  "com.github.UKHomeOffice" %% "test-scala-lib" % `test-scala-lib-version` withSources()
+  "com.github.UKHomeOffice" %% "test-scala-lib" % `test-scala-lib-version`
 )
 
 libraryDependencies ++= Seq(
-  "com.typesafe.play" %% "play-server" % `play-version` % Test withSources(),
-  "com.typesafe.play" %% "play-test" % `play-version` % Test withSources(),
-  "com.github.UKHomeOffice" %% "test-scala-lib" % `test-scala-lib-version` % Test classifier "tests" withSources()
+  "com.typesafe.play" %% "play-server" % `play-version` % Test,
+  "com.typesafe.play" %% "play-test" % `play-version` % Test,
+  "com.github.UKHomeOffice" %% "test-scala-lib" % `test-scala-lib-version` % Test classifier "tests"
 )
