@@ -1,8 +1,8 @@
-package uk.gov.homeoffice.resource
+package uk.gov.homeoffice.io
 
 import java.util.concurrent.atomic.AtomicBoolean
 import org.specs2.mutable.Specification
-import uk.gov.homeoffice.resource.CloseableResource._
+import uk.gov.homeoffice.io.CloseableResource._
 
 class CloseableResourceSpec extends Specification {
   "Resource" should {
