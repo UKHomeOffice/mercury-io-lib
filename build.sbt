@@ -4,12 +4,6 @@ organization := "uk.gov.homeoffice"
 
 scalaVersion := "2.11.8"
 
-fork in run := true
-
-fork in Test := true
-
-publishArtifact in Test := true
-
 scalacOptions ++= Seq(
   "-feature",
   "-language:implicitConversions",
@@ -20,6 +14,12 @@ scalacOptions ++= Seq(
   "-Yrangepos",
   "-Yrepl-sync"
 )
+
+fork in run := true
+
+fork in Test := true
+
+publishArtifact in Test := true
 
 enablePlugins(SiteScaladocPlugin)
 
