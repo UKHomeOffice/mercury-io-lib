@@ -19,6 +19,8 @@ fork in run := true
 
 fork in Test := true
 
+fork in IT := true
+
 publishArtifact in Test := true
 
 enablePlugins(SiteScaladocPlugin)
