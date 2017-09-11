@@ -14,7 +14,7 @@ transitiveClassifiers := Seq("sources")
 val `play-version` = "2.5.12"
 val `json4s-version` = "3.2.11"
 val `scalactic-version` = "3.0.1"
-val `test-scala-lib-version` = "1.4.4"
+val `mercury-test-lib-version` = "1.4.4"
 
 libraryDependencies ++= Seq(
   "com.typesafe.play" %% "play-ws" % `play-version`,
@@ -30,11 +30,11 @@ libraryDependencies ++= Seq(
   "com.lihaoyi" %% "pprint" % "0.4.4",
   "com.github.nscala-time" %% "nscala-time" % "2.16.0",
   "org.clapper" %% "grizzled-slf4j" % "1.3.0",
-  "com.github.UKHomeOffice" %% "test-scala-lib" % `test-scala-lib-version`
+  "com.github.UKHomeOffice" %% "mercury-test-lib" % `mercury-test-lib-version`
 )
 
 libraryDependencies ++= Seq(
   "com.typesafe.play" %% "play-server" % `play-version` % Test,
   "com.typesafe.play" %% "play-test" % `play-version` % Test,
-  "com.github.UKHomeOffice" %% "test-scala-lib" % `test-scala-lib-version` % Test classifier "tests"
+  "com.github.UKHomeOffice" %% "mercury-test-lib" % `mercury-test-lib-version` % Test classifier "tests"
 )
